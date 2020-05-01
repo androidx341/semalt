@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  web:
+    build: ./dev/php
+    environment:
+      - APACHE_RUN_USER=#1000
+    volumes:
+      - ./:${APP_PATH_CONTAINER}
+    ports:
+      - 80:80
+    working_dir: ${APP_PATH_CONTAINER}
+    links:
+      - db
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./dev/database:/var/lib/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
