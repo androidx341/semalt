@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@home')->name('home');
+Route::get('/task2', 'HomeController@task2')->name('task2');
+Route::get('/task3', 'HomeController@task3')->name('task3');
+Route::get('/task4', 'HomeController@task4')->name('task4');
